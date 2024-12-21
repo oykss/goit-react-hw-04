@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import getPhotos from '../components/lib/api_handler';
 import css from './App.module.css';
@@ -18,7 +18,7 @@ export default function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [dataModal, setDataModal] = useState('');
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
+  const totalPage = useRef(null);
 
   useEffect(() => {
     if (!search) return;
@@ -30,7 +30,7 @@ export default function App() {
       try {
         const response = await getPhotos(search, page);
 
-        if (page === 1) setTotalPage(response.total_pages);
+        if (page === 1) totalPage.current = response.total_pages;
 
         setPhotos(prev => [...prev, ...response.results]);
       } catch (error) {
@@ -45,7 +45,7 @@ export default function App() {
 
   const setValues = () => {
     setPage(1);
-    setTotalPage(0);
+    totalPage.current = null;
     setPhotos([]);
   };
 
@@ -67,7 +67,7 @@ export default function App() {
         )}
         {loading && <Loader />}
         {error && <ErrorMessage />}
-        {totalPage > page && <LoadMoreBtn handlePage={setPage} />}
+        {totalPage.current > page && <LoadMoreBtn handlePage={setPage} />}
         <ImageModal
           state={modalIsOpen}
           linkPhoto={dataModal}
