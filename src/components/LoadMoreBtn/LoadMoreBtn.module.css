@@ -1,0 +1,17 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  & button {
+    border-radius: 4px;
+    color: #fff;
+    padding: 2px 8px;
+    background-color: #007bff;
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+      background-color: #007bffb4;
+    }
+  }
+}

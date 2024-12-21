@@ -1,0 +1,49 @@
+.header {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  inset: 0;
+  z-index: 1;
+  background-color: #007bff;
+  margin-bottom: 20px;
+  height: 52px;
+  transition: top 400ms ease-in-out;
+}
+
+.header.headerDisabled {
+  position: fixed;
+  top: -60px;
+}
+
+.form {
+  width: 360px;
+  padding: 10px;
+
+  & input {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+
+    padding: 4px 16px;
+    border-radius: 4px;
+  }
+
+  & button {
+    position: absolute;
+    transition: all 250ms ease;
+    bottom: 8px;
+    margin-left: -30px;
+    transform: scale(1);
+
+    &:hover {
+      transform: scale(1.2);
+      bottom: 7px;
+    }
+  }
+}
+
+.icon {
+  color: #007bff;
+  width: 24px;
+  height: 24px;
+}
