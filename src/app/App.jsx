@@ -9,7 +9,6 @@ import ImageGallery from '../components/ImageGallery/ImageGallery';
 import Loader from '../components/Loader/Loader';
 import ImageModal from '../components/ImageModal/ImageModal';
 import LoadMoreBtn from '../components/LoadMoreBtn/LoadMoreBtn';
-import toast from 'react-hot-toast';
 
 export default function App() {
   const [photos, setPhotos] = useState([]);
@@ -44,12 +43,10 @@ export default function App() {
     fetchPhotos();
   }, [search, page]);
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const setValues = () => {
     setPage(1);
+    setTotalPage(0);
     setPhotos([]);
-    const query = e.target.search.value.trim();
-    query ? setSearch(query) : toast.error("This didn't work.");
   };
 
   const openModalWithImage = linkPhoto => {
@@ -59,7 +56,11 @@ export default function App() {
 
   return (
     <>
-      <SearchBar handleSubmit={handleSubmit} modalIsOpen={modalIsOpen} />
+      <SearchBar
+        modalIsOpen={modalIsOpen}
+        setValues={setValues}
+        setSearch={setSearch}
+      />
       <div className={css.container}>
         {photos && (
           <ImageGallery photos={photos} handleIsOpen={openModalWithImage} />
