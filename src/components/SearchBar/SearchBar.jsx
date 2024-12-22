@@ -4,12 +4,12 @@ import { CiSearch } from 'react-icons/ci';
 import css from './SearchBar.module.css';
 import clsx from 'clsx';
 
-export default function SearchBar({ modalIsOpen, setValues, setSearch }) {
+export default function SearchBar({ modalIsOpen, setQuery }) {
   const handleSubmit = e => {
     e.preventDefault();
-    setValues();
     const query = e.target.search.value.trim();
-    query ? setSearch(query) : toast.error("This didn't work.");
+
+    query ? setQuery(query) : toast.error("This didn't work.");
   };
 
   return (

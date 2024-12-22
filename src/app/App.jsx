@@ -43,10 +43,12 @@ export default function App() {
     fetchPhotos();
   }, [search, page]);
 
-  const setValues = () => {
+  const setQuery = query => {
+    if (query === search) return;
     setPage(1);
     totalPage.current = null;
     setPhotos([]);
+    setSearch(query);
   };
 
   const openModalWithImage = linkPhoto => {
@@ -56,11 +58,7 @@ export default function App() {
 
   return (
     <>
-      <SearchBar
-        modalIsOpen={modalIsOpen}
-        setValues={setValues}
-        setSearch={setSearch}
-      />
+      <SearchBar modalIsOpen={modalIsOpen} setQuery={setQuery} />
       <div className={css.container}>
         {photos && (
           <ImageGallery photos={photos} handleIsOpen={openModalWithImage} />
